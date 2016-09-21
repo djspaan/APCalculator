@@ -1,31 +1,32 @@
-/**
- * @elements Tokens of the type Token
- * @structure linear
- * @domain all rows of tokens
- **/
-public interface TokenStack {
+import java.util.ArrayList;
 
-    /**
-     * @pre -
-     * @post token Token is now at the top of the stack.
-     */
-    void push(Token token);
 
-    /**
-     * @pre The stack is not empty
-     * @post The token at the top of the stack is returned and deleted.
-     */
-    Token pop();
+public class TokenStack implements TokenStackInterface {
 
-    /**
-     * @pre The stack is not empty
-     * @post The token at the top of the stack is returned.
-     */
-    Token top();
+	private ArrayList<Token> token_stack = new ArrayList<Token>();
 
-    /**
-     * @pre -
-     * @post The number of elements on the stack is returned
-     */
-    int size();
+	public void push(Token token) {
+		token_stack.add(0, token);
+	}
+
+	public Token pop() {
+		try{
+			Token token = token_stack.get(0);
+			token_stack.remove(0);
+			return token;
+		}
+		catch (Exception e) {
+			System.out.println("TokenStack cannot be empty when popped.");
+			return null;
+		}
+	}
+
+	public Token top() {
+		return token_stack.get(0);
+	}
+
+	public int size() {
+		return token_stack.size();
+	}
+
 }

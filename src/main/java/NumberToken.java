@@ -3,30 +3,19 @@ public class NumberToken implements Token {
 
 	private double value;
 
-	public NumberToken(double getal) {
-		// TODO Auto-generated constructor stub
-		double value = getal;
-	}
-
-	/**
-	 * @param args
-	 */
-	void main(String[] args) {
-		// TODO Auto-generated method stub
+	public NumberToken(double number) {
+		this.value = number;
 	}
 	
 	public String getValue() {
-		// TODO Auto-generated method stub
-		return String.valueOf(value);
+		return String.valueOf(this.value);
 	}
 	
 	public int getType() {
-		// TODO Auto-generated method stub
 		return NUMBER_TYPE;
 	}
 	
 	public int getPrecedence() {
-		// TODO Auto-generated method stub
 		return -1;
 
 	}
