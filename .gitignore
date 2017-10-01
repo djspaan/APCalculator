@@ -20,7 +20,6 @@ bin/
 hs_err_pid*
 
 .idea/
-AP-Calc-Skeleton.zip
 AP1.iml
 bin/java.zip
 src/main/java/java.zip
