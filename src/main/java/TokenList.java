@@ -4,6 +4,12 @@ import java.util.ArrayList;
 public class TokenList implements TokenListInterface {
 	private ArrayList<Token> list = new ArrayList<>();
 
+	void evaluate() {
+	    for (Token token: list) {
+            System.out.println(token.getValue() + "-");
+        }
+    }
+
 	/**
 	 * Adds an element to the TokenList.
 	 *

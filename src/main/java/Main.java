@@ -20,25 +20,24 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-     * Read tokens from an input string, returns a TokenList.
+     * Reads tokens from an input string and returns a TokenList.
      *
 	 * @param input string containing tokens
 	 * @return TokenList containing the tokens from the input string
 	 */
 	public TokenList readTokens(String input) {
-    	
     	Scanner in = new Scanner(input);
     	TokenList result = new TokenList();	
     	
     	while(in.hasNext()){
     		String token = in.next();
-        	
+
         	if (tokenIsDouble(token)) {
         		result.add(parseNumber(token));
         	}
         	else if (tokenIsOperator(token)) {
     			result.add(parseOperator(token));
-    		} 
+    		}
     		else if (tokenIsParenthesis(token)) {
     			result.add(parseParenthesis(token));
     		} 
@@ -46,6 +45,7 @@ public class Main implements CalculatorInterface {
     			System.out.println("Incorrect input token.");
     		}
     	}
+
     	return result;
     }
 
@@ -123,13 +123,14 @@ public class Main implements CalculatorInterface {
 	 */
 	private boolean tokenIsDouble(String token) {
     	  try  
-    	  {  
-    	    double d = Double.parseDouble(token);  
-    	  }  
+    	  {
+    	    Double.parseDouble(token);
+    	  }
     	  catch(NumberFormatException nfe)  
     	  {  
     	    return false;  
-    	  }  
+    	  }
+
     	  return true;  
 	}
 
@@ -146,8 +147,8 @@ public class Main implements CalculatorInterface {
 		  		return true;
 		  	}
 		}
+
 	  	return false;
-	  	 
 	}
 
 	/**
@@ -163,7 +164,8 @@ public class Main implements CalculatorInterface {
 		else if (token.contains(")")) {
 			return true;
 		}
-	  	return false; 
+
+	  	return false;
 	}
 
 	/**
@@ -173,21 +175,25 @@ public class Main implements CalculatorInterface {
 	 * @return a double containing the outcome of the evaluated expression
 	 */
 	public Double rpn(TokenList tokens) {
-    	int i = 0;
-    	DoubleStack double_stack = new DoubleStack();
+        DoubleStack stack = new DoubleStack();
+        int i = 0;
+
         while (i < tokens.size()) {
         	Token token = tokens.get(i);
-        	if (token.getType() == 1) {
-        		double_stack.push(Double.parseDouble(tokens.get(i).getValue()));
+//            tokens.evaluate();
+
+            if (token.getType() == 1) {
+        		stack.push(Double.parseDouble(tokens.get(i).getValue()));
         	}
         	else if (token.getType() == 2) {
-        		if (double_stack.size() > 1) {
-        			double_stack = performOperation(tokens.get(i), double_stack);
+        		if (stack.size() > 1) {
+        			stack = performOperation(tokens.get(i), stack);
         		}
         	}
         	i++;
         }
-        return double_stack.top();
+
+        return stack.top();
     }
 
 	/**
@@ -225,12 +231,12 @@ public class Main implements CalculatorInterface {
     	
     	while (i < tokens.size()) {
     		Token token = tokens.get(i);
+
         	if (token.getType() == 1) {
         		outputList.add(token);
         	}
         	else if (token.getType() == 2) {
         		if (tokenStack.hasTop()) {
-        			//System.out.println(tokenStack.top().getPrecedence());
         			if (tokenStack.top().getPrecedence() >= token.getPrecedence()) {
             			outputList.add(tokenStack.pop());
             		}
