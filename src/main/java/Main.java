@@ -6,13 +6,25 @@ import java.util.Scanner;
 public class Main implements CalculatorInterface {
 	
 	static final String OPERATOR_TOKENS = "+-*/^";
-	
+
+	/**
+	 * Returns whether the next token is a double, false otherwise.
+	 *
+	 * @param token string containing the token
+	 * @return boolean whether the next token is a double
+	 */
 	boolean nextTokenIsDouble(String token) {
 		Scanner in = new Scanner(token);
 		return in.hasNextDouble();
 	}
 
-    public TokenList readTokens(String input) {
+	/**
+     * Read tokens from an input string, returns a TokenList.
+     *
+	 * @param input string containing tokens
+	 * @return TokenList containing the tokens from the input string
+	 */
+	public TokenList readTokens(String input) {
     	
     	Scanner in = new Scanner(input);
     	TokenList result = new TokenList();	
@@ -35,40 +47,73 @@ public class Main implements CalculatorInterface {
     	}
     	return result;
     }
-    
+
+	/**
+     * Parses a NumberToken from a string.
+     *
+	 * @param token string containing a NumberToken
+	 * @return NumberToken object with the value of the input string
+	 */
 	private NumberToken parseNumber(String token) {
 		Scanner in = new Scanner(token);
 		return readNumber(in);
 	}
 
+	/**
+     * Returns a new NumberToken from a Scanner object.
+     *
+	 * @param in Scanner object containing the token
+	 * @return NumberToken containing the token as value
+	 */
 	private NumberToken readNumber(Scanner in) {
     	double number = Double.parseDouble(in.next());
-    	NumberToken number_token = new NumberToken(number);
-    	return number_token;
+    	return new NumberToken(number);
     }
-	
+
+	/**
+     * Parses an OperatorToken from a string.
+     *
+     * @param token string containing a OperatorToken
+     * @return OperatorToken object with the value of the input string
+	 */
 	private OperatorToken parseOperator(String token) {
 		Scanner in = new Scanner(token);
 		return readOperator(in);
 	}
-	
+
+	/**
+	 * @param in
+	 * @return
+	 */
 	private OperatorToken readOperator(Scanner in) {
     	String operator = in.next();
     	OperatorToken operator_token = new OperatorToken(operator);
     	return operator_token;
     }
-	
+
+	/**
+	 * @param token
+	 * @return
+	 */
 	private ParenthesisToken parseParenthesis(String token) {
 		Scanner in = new Scanner(token);
 		return readParenthesis(in);
 	}
-	
+
+	/**
+	 * @param in
+	 * @return
+	 */
 	private ParenthesisToken readParenthesis(Scanner in) {
     	String parenthesis = in.next();
     	ParenthesisToken parenthesis_token = new ParenthesisToken(parenthesis);
     	return parenthesis_token;
     }
-	
+
+	/**
+	 * @param token
+	 * @return
+	 */
 	private boolean tokenIsDouble(String token) {
     	  try  
     	  {  
@@ -81,6 +126,10 @@ public class Main implements CalculatorInterface {
     	  return true;  
 	}
 
+	/**
+	 * @param token
+	 * @return
+	 */
 	private boolean tokenIsOperator(String token) {
 		for (char ch: OPERATOR_TOKENS.toCharArray()) {
 			CharSequence chs = String.valueOf(token);
@@ -91,7 +140,11 @@ public class Main implements CalculatorInterface {
 	  	return false;
 	  	 
 	}
-	
+
+	/**
+	 * @param token
+	 * @return
+	 */
 	private boolean tokenIsParenthesis(String token) {
 		if (token.contains("(")) {
 	  		return true;
@@ -101,8 +154,12 @@ public class Main implements CalculatorInterface {
 		}
 	  	return false; 
 	}
-	
-    public Double rpn(TokenList tokens) {
+
+	/**
+	 * @param tokens
+	 * @return
+	 */
+	public Double rpn(TokenList tokens) {
     	int i = 0;
     	DoubleStack double_stack = new DoubleStack();
         while (i < tokens.size()) {
@@ -120,8 +177,13 @@ public class Main implements CalculatorInterface {
         System.out.println("aids");
         return double_stack.top();
     }
-    
-    private DoubleStack performOperation(Token operator, DoubleStack stack) {
+
+	/**
+	 * @param operator
+	 * @param stack
+	 * @return
+	 */
+	private DoubleStack performOperation(Token operator, DoubleStack stack) {
     	double a = stack.pop();
 		double b = stack.pop();
     	switch (operator.getValue()) {
@@ -135,7 +197,11 @@ public class Main implements CalculatorInterface {
     	return stack;
 	}
 
-    public TokenList shuntingYard(TokenList tokens) {
+	/**
+	 * @param tokens
+	 * @return
+	 */
+	public TokenList shuntingYard(TokenList tokens) {
     	System.out.println("aids2");
     	TokenStack token_stack = new TokenStack();
     	TokenList output_list = new TokenList();
@@ -176,7 +242,10 @@ public class Main implements CalculatorInterface {
         return output_list;
     }
 
-    private void start() {
+	/**
+	 *
+	 */
+	private void start() {
     	Scanner scanner = new Scanner(System.in);
     	
     	while(scanner.hasNextLine()) {
@@ -189,7 +258,10 @@ public class Main implements CalculatorInterface {
     	
     }
 
-    public static void main(String[] argv) {
+	/**
+	 * @param argv
+	 */
+	public static void main(String[] argv) {
         new Main().start();
     }
 }

@@ -21,7 +21,7 @@ public class DoubleStack implements DoubleStackInterface {
 	}
 
 	public Double top() {
-		return double_array.get(0);
+        return double_array.get(0);
 	}
 
 	public int size() {

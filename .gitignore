@@ -8,6 +8,7 @@ nbactions.xml
 nb-configuration.xml
 
 # Class Files #
+bin/
 *.class
 
 # Package Files #
