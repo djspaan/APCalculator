@@ -24,5 +24,5 @@ public class TokenList implements TokenListInterface {
 	public int size() {
 		return tokens.size();
 	}
-	
+
 }

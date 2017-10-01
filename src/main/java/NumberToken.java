@@ -17,7 +17,6 @@ public class NumberToken implements Token {
 	
 	public int getPrecedence() {
 		return -1;
-
 	}
 
 }

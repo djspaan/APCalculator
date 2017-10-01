@@ -24,6 +24,13 @@ public class TokenStack implements TokenStackInterface {
 	public Token top() {
 		return token_stack.get(0);
 	}
+	
+	public boolean hasTop() {
+		if (this.size() > 1) {
+			return true;
+		}
+		return false;
+	}
 
 	public int size() {
 		return token_stack.size();

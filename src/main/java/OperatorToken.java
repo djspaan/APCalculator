@@ -16,6 +16,13 @@ public class OperatorToken implements Token{
 	}
 	
 	public int getPrecedence() {
+		switch (value) {
+			case "-": return 1;
+			case "+": return 1;
+			case "*": return 2;
+			case "/": return 2;
+			case "^": return 3;
+		}
 		return -1;
 
 	}

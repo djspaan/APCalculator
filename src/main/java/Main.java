@@ -105,31 +105,20 @@ public class Main implements CalculatorInterface {
     public Double rpn(TokenList tokens) {
     	int i = 0;
     	DoubleStack double_stack = new DoubleStack();
-    	TokenStack token_stack = new TokenStack();
         while (i < tokens.size()) {
         	Token token = tokens.get(i);
-        	
         	if (token.getType() == 1) {
-        		token_stack.push(token);
         		double_stack.push(Double.parseDouble(tokens.get(i).getValue()));
         	}
         	else if (token.getType() == 2) {
-        		System.out.println("stack size = " + double_stack.size());
-        		System.out.println("operator = " + token.getValue());
         		if (double_stack.size() > 1) {
         			double_stack = performOperation(tokens.get(i), double_stack);
-        			token_stack.pop();
-        			token_stack.pop();
-        		}
-        		else {
-        			token_stack.push(token);
         		}
         	}
         	i++;
         }
-        System.out.println("token stack size = " + double_stack.size());
-        System.out.println("value = " + double_stack.top());
-        return null;
+        System.out.println("aids");
+        return double_stack.top();
     }
     
     private DoubleStack performOperation(Token operator, DoubleStack stack) {
@@ -147,8 +136,44 @@ public class Main implements CalculatorInterface {
 	}
 
     public TokenList shuntingYard(TokenList tokens) {
-        // TODO: Implement this
-        return null;
+    	System.out.println("aids2");
+    	TokenStack token_stack = new TokenStack();
+    	TokenList output_list = new TokenList();
+    	int i = 0;
+    	
+    	while (i < tokens.size()) {
+    		Token token = tokens.get(i);
+        	if (token.getType() == 1) {
+        		output_list.add(token);
+        	}
+        	else if (token.getType() == 2) {
+        		if (token_stack.hasTop()) {
+        			//System.out.println(token_stack.top().getPrecedence());
+        			if (token_stack.top().getPrecedence() >= token.getPrecedence()) {
+            			output_list.add(token_stack.pop());
+            			System.out.println("AIDS8");
+            		}
+        		}
+        		System.out.println("AIDS9");
+        		token_stack.push(token);
+        		
+        	}
+        	if (token.getValue() == "(") {
+        		token_stack.push(token);
+        	}
+        	if (token.getValue() == ")") {
+        		while (token_stack.top().getValue() != "(") {
+        			output_list.add(token_stack.pop());
+        		}
+        		token_stack.pop();
+        	}
+        	i++;
+    	}
+    	while (token_stack.size() > 0) {
+    		output_list.add(token_stack.pop());
+    	}
+        		
+        return output_list;
     }
 
     private void start() {
@@ -159,7 +184,7 @@ public class Main implements CalculatorInterface {
     	    if(input.equals("exit")) {
     	        break;
     	    }
-    	    rpn(readTokens(input));
+    	    System.out.println(rpn(shuntingYard(readTokens(input))));
     	}
     	
     }
