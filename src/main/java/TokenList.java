@@ -2,27 +2,52 @@ import java.util.ArrayList;
 
 
 public class TokenList implements TokenListInterface {
+	private ArrayList<Token> list = new ArrayList<>();
 
-	private ArrayList<Token> tokens = new ArrayList<Token>();
-	
+	/**
+	 * Adds an element to the TokenList.
+	 *
+	 * @param token to add
+	 */
 	public void add(Token token) {
-		tokens.add(token);
+		list.add(token);
 	}
-	
+
+    /**
+     * Removes an item at the given index of the TokenList.
+     *
+     * @param index containing the index of the item to be removed
+     */
 	public void remove(int index) {
-		tokens.remove(index);
+		list.remove(index);
 	}
-	
+
+    /**
+     * Adds an item at the given index to the TokenList.
+     *
+     * @param index of the item to add
+     * @param token that needs to be added
+     */
 	public void set(int index, Token token) {
-		tokens.add(index, token);
+		list.add(index, token);
 	}
-	
+
+    /**
+     * Gets an item at the given index of the TokenList.
+     *
+     * @param index of the item to get
+     */
 	public Token get(int index) {
-		return tokens.get(index);
+		return list.get(index);
 	}
-	
+
+    /**
+     * Gets the number of elements in the TokenList.
+     *
+     * @return int containing the size
+     */
 	public int size() {
-		return tokens.size();
+		return list.size();
 	}
 
 }

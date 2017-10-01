@@ -1,22 +1,41 @@
 
 public class NumberToken implements Token {
-
 	private double value;
 
-	public NumberToken(double number) {
+    /**
+     * Constructor for the NumberToken.
+     *
+     * @param number to add
+     */
+    NumberToken(double number) {
 		this.value = number;
 	}
-	
-	public String getValue() {
-		return String.valueOf(this.value);
+
+    /**
+     * Gets the value of the NumberToken.
+     *
+     * @return string containing the value
+     */
+    public String getValue() {
+	    return String.valueOf(this.value);
 	}
-	
-	public int getType() {
-		return NUMBER_TYPE;
+
+    /**
+     * Gets the type of the NumberToken.
+     *
+     * @return string containing the type
+     */
+    public int getType() {
+	    return NUMBER_TYPE;
 	}
-	
-	public int getPrecedence() {
-		return -1;
+
+    /**
+     * Gets the value of the precedence.
+     *
+     * @return string containing the precedence value
+     */
+    public int getPrecedence() {
+	    return -1;
 	}
 
 }

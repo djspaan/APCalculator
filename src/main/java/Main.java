@@ -1,17 +1,19 @@
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;	
+//import java.io.PrintStream;
+//import java.util.HashMap;
+//import java.util.Map;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class Main implements CalculatorInterface {
-	
-	static final String OPERATOR_TOKENS = "+-*/^";
+
+    private static final String OPERATOR_TOKENS = "+-*/^";
 
 	/**
 	 * Returns whether the next token is a double, false otherwise.
 	 *
 	 * @param token string containing the token
 	 * @return boolean whether the next token is a double
+     * @deprecated
 	 */
 	boolean nextTokenIsDouble(String token) {
 		Scanner in = new Scanner(token);
@@ -73,7 +75,7 @@ public class Main implements CalculatorInterface {
 	/**
      * Parses an OperatorToken from a string.
      *
-     * @param token string containing a OperatorToken
+     * @param token string containing an OperatorToken
      * @return OperatorToken object with the value of the input string
 	 */
 	private OperatorToken parseOperator(String token) {
@@ -82,18 +84,21 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-	 * @param in
-	 * @return
+     * Returns a new OperatorToken from a Scanner object.
+     *
+     * @param in Scanner object containing the token
+     * @return OperatorToken containing the token as value
 	 */
 	private OperatorToken readOperator(Scanner in) {
     	String operator = in.next();
-    	OperatorToken operator_token = new OperatorToken(operator);
-    	return operator_token;
+    	return new OperatorToken(operator);
     }
 
 	/**
-	 * @param token
-	 * @return
+     * Parses a ParenthesisToken from a string.
+     *
+     * @param token string containing a ParenthesisToken
+     * @return ParenthesisToken object with the value of the input string
 	 */
 	private ParenthesisToken parseParenthesis(String token) {
 		Scanner in = new Scanner(token);
@@ -101,18 +106,21 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-	 * @param in
-	 * @return
+     * Returns a new ParenthesisToken from a Scanner object.
+     *
+     * @param in Scanner object containing the token
+     * @return ParenthesisToken containing the token as value
 	 */
 	private ParenthesisToken readParenthesis(Scanner in) {
     	String parenthesis = in.next();
-    	ParenthesisToken parenthesis_token = new ParenthesisToken(parenthesis);
-    	return parenthesis_token;
+    	return new ParenthesisToken(parenthesis);
     }
 
 	/**
-	 * @param token
-	 * @return
+     * Asserts if a token is a double.
+     *
+	 * @param token string containing a token
+	 * @return boolean whether a string containing a token is a double
 	 */
 	private boolean tokenIsDouble(String token) {
     	  try  
@@ -127,8 +135,10 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-	 * @param token
-	 * @return
+     * Asserts if a token is an operator.
+     *
+     * @param token string containing an operator
+     * @return boolean whether a string containing a token is an operator
 	 */
 	private boolean tokenIsOperator(String token) {
 		for (char ch: OPERATOR_TOKENS.toCharArray()) {
@@ -142,8 +152,10 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-	 * @param token
-	 * @return
+     * Asserts if a token is a parenthesis.
+     *
+     * @param token string containing a parenthesis
+     * @return boolean whether a string containing a token is a parenthesis
 	 */
 	private boolean tokenIsParenthesis(String token) {
 		if (token.contains("(")) {
@@ -156,8 +168,10 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-	 * @param tokens
-	 * @return
+     * Evaluates a postfix(rpn) expression.
+     *
+	 * @param tokens TokenList containing a postfix expression
+	 * @return a double containing the outcome of the evaluated expression
 	 */
 	public Double rpn(TokenList tokens) {
     	int i = 0;
@@ -174,14 +188,15 @@ public class Main implements CalculatorInterface {
         	}
         	i++;
         }
-        System.out.println("aids");
         return double_stack.top();
     }
 
 	/**
-	 * @param operator
-	 * @param stack
-	 * @return
+     * Evaluates an expression of 2 doubles and an operator.
+     *
+	 * @param operator a token of type operator
+	 * @param stack a stack of doubles
+	 * @return DoubleStack with the evaluated expression
 	 */
 	private DoubleStack performOperation(Token operator, DoubleStack stack) {
     	double a = stack.pop();
@@ -198,52 +213,51 @@ public class Main implements CalculatorInterface {
 	}
 
 	/**
-	 * @param tokens
-	 * @return
+     * Converts infix expressions into postfix expressions.
+     *
+	 * @param tokens TokenList containing an infix expression
+	 * @return TokenList containing an postfix(rpn) expression
 	 */
 	public TokenList shuntingYard(TokenList tokens) {
-    	System.out.println("aids2");
-    	TokenStack token_stack = new TokenStack();
-    	TokenList output_list = new TokenList();
+    	TokenStack tokenStack = new TokenStack();
+    	TokenList outputList = new TokenList();
     	int i = 0;
     	
     	while (i < tokens.size()) {
     		Token token = tokens.get(i);
         	if (token.getType() == 1) {
-        		output_list.add(token);
+        		outputList.add(token);
         	}
         	else if (token.getType() == 2) {
-        		if (token_stack.hasTop()) {
-        			//System.out.println(token_stack.top().getPrecedence());
-        			if (token_stack.top().getPrecedence() >= token.getPrecedence()) {
-            			output_list.add(token_stack.pop());
-            			System.out.println("AIDS8");
+        		if (tokenStack.hasTop()) {
+        			//System.out.println(tokenStack.top().getPrecedence());
+        			if (tokenStack.top().getPrecedence() >= token.getPrecedence()) {
+            			outputList.add(tokenStack.pop());
             		}
         		}
-        		System.out.println("AIDS9");
-        		token_stack.push(token);
+        		tokenStack.push(token);
         		
         	}
-        	if (token.getValue() == "(") {
-        		token_stack.push(token);
+        	if (Objects.equals(token.getValue(), "(")) {
+        		tokenStack.push(token);
         	}
-        	if (token.getValue() == ")") {
-        		while (token_stack.top().getValue() != "(") {
-        			output_list.add(token_stack.pop());
+        	if (Objects.equals(token.getValue(), ")")) {
+        		while (!Objects.equals(tokenStack.top().getValue(), "(")) {
+        			outputList.add(tokenStack.pop());
         		}
-        		token_stack.pop();
+        		tokenStack.pop();
         	}
         	i++;
     	}
-    	while (token_stack.size() > 0) {
-    		output_list.add(token_stack.pop());
+    	while (tokenStack.size() > 0) {
+    		outputList.add(tokenStack.pop());
     	}
         		
-        return output_list;
+        return outputList;
     }
 
 	/**
-	 *
+	 * Starts the program.
 	 */
 	private void start() {
     	Scanner scanner = new Scanner(System.in);
@@ -259,7 +273,9 @@ public class Main implements CalculatorInterface {
     }
 
 	/**
-	 * @param argv
+     * Runs the APCalculator.
+     *
+	 * @param argv list of strings
 	 */
 	public static void main(String[] argv) {
         new Main().start();
