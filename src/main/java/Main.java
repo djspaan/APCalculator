@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main implements CalculatorInterface {
-
     private static final String OPERATOR_TOKENS = "+-*/^";
 
 	/**
@@ -201,6 +200,7 @@ public class Main implements CalculatorInterface {
 	private DoubleStack performOperation(Token operator, DoubleStack stack) {
     	double a = stack.pop();
 		double b = stack.pop();
+
     	switch (operator.getValue()) {
 			case "+": stack.push(a + b); break;
 			case "-": stack.push(a - b); break;
@@ -249,6 +249,7 @@ public class Main implements CalculatorInterface {
         	}
         	i++;
     	}
+
     	while (tokenStack.size() > 0) {
     		outputList.add(tokenStack.pop());
     	}
@@ -269,7 +270,6 @@ public class Main implements CalculatorInterface {
     	    }
     	    System.out.println(rpn(shuntingYard(readTokens(input))));
     	}
-    	
     }
 
 	/**
