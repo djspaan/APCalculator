@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class TokenStack implements TokenStackInterface {
 	private ArrayList<Token> stack = new ArrayList<>();
 
@@ -10,7 +9,7 @@ public class TokenStack implements TokenStackInterface {
 	 * @param token to add
 	 */
 	public void push(Token token) {
-		stack.add(0, token);
+		stack.add(token);
 	}
 
     /**

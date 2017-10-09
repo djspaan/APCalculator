@@ -5,9 +5,11 @@ public class TokenList implements TokenListInterface {
 	private ArrayList<Token> list = new ArrayList<>();
 
 	void evaluate() {
-	    for (Token token: list) {
-            System.out.println(token.getValue() + "-");
-        }
+        System.out.print("list:");
+        for (Token token: list) {
+            System.out.print(token.getValue() + "  ");
+		}
+        System.out.println(' ');
     }
 
 	/**
