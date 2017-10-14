@@ -3,13 +3,22 @@ import java.util.ArrayList;
 public class TokenStack implements TokenStackInterface {
 	private ArrayList<Token> stack = new ArrayList<>();
 
+
+	void evaluate() {
+		System.out.print("stack:");
+		for (Token token: stack) {
+			System.out.print(token.getValue() + "  ");
+		}
+		System.out.println(' ');
+	}
+
 	/**
 	 * Adds an element to the TokenStack.
 	 *
 	 * @param token to add
 	 */
 	public void push(Token token) {
-		stack.add(token);
+		stack.add(0, token);
 	}
 
     /**

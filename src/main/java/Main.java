@@ -228,47 +228,47 @@ public class Main implements CalculatorInterface {
      * @return TokenList containing an postfix(rpn) expression
      */
     public TokenList shuntingYard(TokenList tokens) {
-        TokenStack tokenStack = new TokenStack();
-        TokenList outputList = new TokenList();
-        int i = 0;
+        TokenStack stack = new TokenStack();
+        TokenList output = new TokenList();
 
-        while (i < tokens.size()) {
+        for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-            System.out.println("token:"+ token.getValue());
-            outputList.evaluate();
-
+//            System.out.println("token:"+ token.getValue());
+            output.evaluate();
 
             if (token.getType() == 1) {
-                outputList.add(token);
+                output.add(token);
             } else if (token.getType() == 2) {
-                while (tokenStack.hasTop() && tokenStack.top().getType() == 2 && tokenStack.top().getPrecedence() >= token.getPrecedence()) {
-                    outputList.add(tokenStack.pop());
+                while (stack.hasTop() && stack.top().getType() == 2
+                        && stack.top().getPrecedence() >= token.getPrecedence()) {
+                    output.add(stack.pop());
                 }
-                tokenStack.push(token);
+                stack.push(token);
             }
-//            if (Objects.equals(token.getValue(), "(")) {
-//                tokenStack.push(token);
-//            }
-//            if (Objects.equals(token.getValue(), ")")) {
-//                while (tokenStack.hasTop() && !Objects.equals(tokenStack.top().getValue(), "(")) {
-//                    if (tokenStack.top().getType() == 2) {
-//                        outputList.add(tokenStack.pop());
+            if (Objects.equals(token.getValue(), "(")) {
+                stack.push(token);
+            }
+            if (Objects.equals(token.getValue(), ")")) {
+                while (stack.hasTop() && !Objects.equals(stack.top().getValue(), "(")) {
+//                    if (stack.top().getType() == 2) {
+                    output.add(stack.pop());
 //                    }
+                }
+//                if (stack.hasTop()) {
+                    stack.pop();
 //                }
-//                if (tokenStack.hasTop()) {
-//                    tokenStack.pop();
-//                }
-//            }
-            i++;
+            }
         }
 
-        while (tokenStack.size() > 0) {
-            outputList.add(tokenStack.pop());
+        stack.evaluate();
+
+        while (stack.size() > 0) {
+            output.add(stack.pop());
         }
 
-        //outputList.evaluate();
+        output.evaluate();
 
-        return outputList;
+        return output;
     }
 
     /**
