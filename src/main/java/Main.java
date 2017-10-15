@@ -195,13 +195,8 @@ public class Main implements CalculatorInterface {
      * @return DoubleStack with the evaluated expression
      */
     private DoubleStack performOperation(Token operator, DoubleStack stack) {
-
-        stack.evaluate();
-
         double a = stack.pop();
         double b = stack.pop();
-
-        System.out.println(a + operator.getValue() + b);
 
         switch (operator.getValue()) {
             case "+":
@@ -236,17 +231,21 @@ public class Main implements CalculatorInterface {
 
         for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-//            System.out.println("token:"+ token.getValue());
-            output.evaluate();
 
             if (token.getType() == 1) {
                 output.add(token);
             } else if (token.getType() == 2) {
-                while (stack.hasTop() && stack.top().getType() == 2
+                while (stack.hasTop() && stack.top().getType() == 2 && !Objects.equals(stack.top().getValue(), "(") && !Objects.equals(stack.top().getValue(), ")")
                         && stack.top().getPrecedence() >= token.getPrecedence()) {
                     output.add(stack.pop());
                 }
-                stack.push(token);
+
+                if (!Objects.equals(token.getValue(), "(")) {
+                    if (!Objects.equals(token.getValue(), ")")) {
+                        stack.push(token);
+                    }
+                }
+
             }
             if (Objects.equals(token.getValue(), "(")) {
                 stack.push(token);
@@ -254,22 +253,18 @@ public class Main implements CalculatorInterface {
             if (Objects.equals(token.getValue(), ")")) {
                 while (stack.hasTop() && !Objects.equals(stack.top().getValue(), "(")) {
                     if (stack.top().getType() == 2) {
-                    output.add(stack.pop());
+                        output.add(stack.pop());
                     }
                 }
-                if (stack.hasTop()) {
+                if (stack.hasTop() && Objects.equals(stack.top().getValue(), "(")) {
                     stack.pop();
                 }
             }
         }
 
-        stack.evaluate();
-
         while (stack.size() > 0) {
             output.add(stack.pop());
         }
-
-        output.evaluate();
 
         return output;
     }
