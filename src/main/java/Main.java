@@ -228,7 +228,7 @@ public class Main implements CalculatorInterface {
      * Converts infix expressions into postfix expressions.
      *
      * @param tokens TokenList containing an infix expression
-     * @return TokenList containing an postfix(rpn) expression
+     * @return TokenList containing a postfix(rpn) expression
      */
     public TokenList shuntingYard(TokenList tokens) {
         TokenStack stack = new TokenStack();
@@ -253,13 +253,13 @@ public class Main implements CalculatorInterface {
             }
             if (Objects.equals(token.getValue(), ")")) {
                 while (stack.hasTop() && !Objects.equals(stack.top().getValue(), "(")) {
-//                    if (stack.top().getType() == 2) {
+                    if (stack.top().getType() == 2) {
                     output.add(stack.pop());
-//                    }
+                    }
                 }
-//                if (stack.hasTop()) {
+                if (stack.hasTop()) {
                     stack.pop();
-//                }
+                }
             }
         }
 
@@ -285,7 +285,7 @@ public class Main implements CalculatorInterface {
             if (input.equals("exit")) {
                 break;
             }
-            System.out.println(rpn(readTokens(input)));
+            System.out.println(rpn(shuntingYard(readTokens(input))));
         }
     }
 
