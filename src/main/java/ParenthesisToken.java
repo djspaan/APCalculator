@@ -26,7 +26,7 @@ public class ParenthesisToken implements Token {
      * @return string containing the type
      */
 	public int getType() {
-		return 3;
+		return PARENTHESIS_TYPE;
 	}
 
     /**

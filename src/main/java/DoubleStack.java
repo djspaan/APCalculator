@@ -3,14 +3,6 @@ import java.util.ArrayList;
 public class DoubleStack implements DoubleStackInterface {
 	private ArrayList<Double> stack = new ArrayList<>();
 
-	void evaluate() {
-		System.out.print("stack:");
-		for (Double d: stack) {
-			System.out.print(d.toString() + "  ");
-		}
-		System.out.println(' ');
-	}
-
     /**
      * Pushes an element to the DoubleStack.
      *

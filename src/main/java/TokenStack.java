@@ -3,15 +3,6 @@ import java.util.ArrayList;
 public class TokenStack implements TokenStackInterface {
 	private ArrayList<Token> stack = new ArrayList<>();
 
-
-	void evaluate() {
-		System.out.print("stack:");
-		for (Token token: stack) {
-			System.out.print(token.getValue() + "  ");
-		}
-		System.out.println(' ');
-	}
-
 	/**
 	 * Adds an element to the TokenStack.
 	 *
@@ -54,7 +45,7 @@ public class TokenStack implements TokenStackInterface {
      * @return boolean whether empty
      */
     boolean hasTop() {
-		return this.size() > 1;
+		return this.size() > 0;
 	}
 
     /**

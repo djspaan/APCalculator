@@ -1,10 +1,5 @@
-//import java.io.PrintStream;
-//import java.util.HashMap;
-//import java.util.Map;
-
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main implements CalculatorInterface {
     private static final String OPERATOR_TOKENS = "+-*/^";
@@ -44,8 +39,6 @@ public class Main implements CalculatorInterface {
                 System.out.println("Incorrect input token.");
             }
         }
-
-        result.evaluate();
 
         return result;
     }
@@ -177,9 +170,9 @@ public class Main implements CalculatorInterface {
         for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
 
-            if (token.getType() == 1) {
+            if (token.getType() == Token.NUMBER_TYPE) {
                 stack.push(Double.parseDouble(tokens.get(i).getValue()));
-            } else if (token.getType() == 2) {
+            } else if (token.getType() == Token.OPERATOR_TYPE) {
                 if (stack.size() > 1) {
                     stack = performOperation(tokens.get(i), stack);
                 }
@@ -202,19 +195,19 @@ public class Main implements CalculatorInterface {
 
         switch (operator.getValue()) {
             case "+":
-                stack.push(a + b);
+                stack.push(b + a);
                 break;
             case "-":
-                stack.push(a - b);
+                stack.push(b - a);
                 break;
             case "*":
-                stack.push(a * b);
+                stack.push(b * a);
                 break;
             case "/":
-                stack.push(a / b);
+                stack.push(b / a);
                 break;
             case "^":
-                stack.push(Math.pow(a, b));
+                stack.push(Math.pow(b, a));
                 break;
         }
 
@@ -234,29 +227,21 @@ public class Main implements CalculatorInterface {
         for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
 
-            if (token.getType() == 1) {
+            if (token.getType() == Token.NUMBER_TYPE) {
                 output.add(token);
-            } else if (token.getType() == 2) {
-                while (stack.hasTop() && stack.top().getType() == 2
+            } else if (token.getType() == Token.OPERATOR_TYPE) {
+                while (stack.hasTop() && stack.top().getType() == Token.OPERATOR_TYPE
                         && stack.top().getPrecedence() >= token.getPrecedence()) {
                     output.add(stack.pop());
                 }
-
-                if (!Objects.equals(token.getValue(), "(")) {
-                    if (!Objects.equals(token.getValue(), ")")) {
-                        stack.push(token);
-                    }
-                }
-
+                stack.push(token);
             }
             if (Objects.equals(token.getValue(), "(")) {
                 stack.push(token);
             }
             if (Objects.equals(token.getValue(), ")")) {
                 while (stack.hasTop() && !Objects.equals(stack.top().getValue(), "(")) {
-                    if (stack.top().getType() == 2) {
-                        output.add(stack.pop());
-                    }
+                    output.add(stack.pop());
                 }
                 stack.pop();
             }
@@ -265,8 +250,6 @@ public class Main implements CalculatorInterface {
         while (stack.size() > 0) {
             output.add(stack.pop());
         }
-
-        output.evaluate();
 
         return output;
     }

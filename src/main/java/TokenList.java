@@ -4,14 +4,6 @@ import java.util.ArrayList;
 public class TokenList implements TokenListInterface {
 	private ArrayList<Token> list = new ArrayList<>();
 
-	void evaluate() {
-        System.out.print("list:");
-        for (Token token: list) {
-            System.out.print(token.getValue() + "  ");
-		}
-        System.out.println(' ');
-    }
-
 	/**
 	 * Adds an element to the TokenList.
 	 *
