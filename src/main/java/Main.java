@@ -4,6 +4,7 @@
 
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main implements CalculatorInterface {
     private static final String OPERATOR_TOKENS = "+-*/^";
@@ -43,6 +44,8 @@ public class Main implements CalculatorInterface {
                 System.out.println("Incorrect input token.");
             }
         }
+
+        result.evaluate();
 
         return result;
     }
@@ -137,7 +140,7 @@ public class Main implements CalculatorInterface {
      */
     private boolean tokenIsOperator(String token) {
         for (char ch : OPERATOR_TOKENS.toCharArray()) {
-            CharSequence chs = String.valueOf(token);
+            CharSequence chs = String.valueOf(ch);
             if (token.contains(chs)) {
                 return true;
             }
@@ -173,7 +176,6 @@ public class Main implements CalculatorInterface {
 
         for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-//            tokens.evaluate();
 
             if (token.getType() == 1) {
                 stack.push(Double.parseDouble(tokens.get(i).getValue()));
@@ -235,9 +237,7 @@ public class Main implements CalculatorInterface {
             if (token.getType() == 1) {
                 output.add(token);
             } else if (token.getType() == 2) {
-                // Lelijke check om te voorkomen dat haakjes worden toegevoegd aan de output
-                while (stack.hasTop() && stack.top().getType() == 2 && !Objects.equals(stack.top().getValue(), "(")
-                        && !Objects.equals(stack.top().getValue(), ")")
+                while (stack.hasTop() && stack.top().getType() == 2
                         && stack.top().getPrecedence() >= token.getPrecedence()) {
                     output.add(stack.pop());
                 }
@@ -258,17 +258,15 @@ public class Main implements CalculatorInterface {
                         output.add(stack.pop());
                     }
                 }
-                if (stack.hasTop() && Objects.equals(stack.top().getValue(), "(")) {
-                    stack.pop();
-                }
+                stack.pop();
             }
         }
-
-        output.evaluate();
 
         while (stack.size() > 0) {
             output.add(stack.pop());
         }
+
+        output.evaluate();
 
         return output;
     }
