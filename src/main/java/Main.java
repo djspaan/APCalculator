@@ -235,7 +235,9 @@ public class Main implements CalculatorInterface {
             if (token.getType() == 1) {
                 output.add(token);
             } else if (token.getType() == 2) {
-                while (stack.hasTop() && stack.top().getType() == 2 && !Objects.equals(stack.top().getValue(), "(") && !Objects.equals(stack.top().getValue(), ")")
+                // Lelijke check om te voorkomen dat haakjes worden toegevoegd aan de output
+                while (stack.hasTop() && stack.top().getType() == 2 && !Objects.equals(stack.top().getValue(), "(")
+                        && !Objects.equals(stack.top().getValue(), ")")
                         && stack.top().getPrecedence() >= token.getPrecedence()) {
                     output.add(stack.pop());
                 }
@@ -261,6 +263,8 @@ public class Main implements CalculatorInterface {
                 }
             }
         }
+
+        output.evaluate();
 
         while (stack.size() > 0) {
             output.add(stack.pop());
