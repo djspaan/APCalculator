@@ -170,9 +170,8 @@ public class Main implements CalculatorInterface {
      */
     public Double rpn(TokenList tokens) {
         DoubleStack stack = new DoubleStack();
-        int i = 0;
 
-        while (i < tokens.size()) {
+        for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
 //            tokens.evaluate();
 
@@ -183,7 +182,6 @@ public class Main implements CalculatorInterface {
                     stack = performOperation(tokens.get(i), stack);
                 }
             }
-            i++;
         }
 
         return stack.top();
@@ -197,8 +195,13 @@ public class Main implements CalculatorInterface {
      * @return DoubleStack with the evaluated expression
      */
     private DoubleStack performOperation(Token operator, DoubleStack stack) {
+
+        stack.evaluate();
+
         double a = stack.pop();
         double b = stack.pop();
+
+        System.out.println(a + operator.getValue() + b);
 
         switch (operator.getValue()) {
             case "+":
@@ -282,7 +285,7 @@ public class Main implements CalculatorInterface {
             if (input.equals("exit")) {
                 break;
             }
-            System.out.println(rpn(shuntingYard(readTokens(input))));
+            System.out.println(rpn(readTokens(input)));
         }
     }
 

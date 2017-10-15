@@ -3,13 +3,21 @@ import java.util.ArrayList;
 public class DoubleStack implements DoubleStackInterface {
 	private ArrayList<Double> stack = new ArrayList<>();
 
+	void evaluate() {
+		System.out.print("stack:");
+		for (Double d: stack) {
+			System.out.print(d.toString() + "  ");
+		}
+		System.out.println(' ');
+	}
+
     /**
-     * Adds an element to the DoubleStack.
+     * Pushes an element to the DoubleStack.
      *
-     * @param element to add
+     * @param element to push
      */
     public void push(Double element) {
-        stack.add(element);
+        stack.add(0, element);
 	}
 
     /**
