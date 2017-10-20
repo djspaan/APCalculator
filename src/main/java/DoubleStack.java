@@ -47,4 +47,7 @@ public class DoubleStack implements DoubleStackInterface {
 		return stack.size();
 	}
 
+
+
+
 }

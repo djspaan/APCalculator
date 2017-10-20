@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-
-
 public class TokenList implements TokenListInterface {
-	private ArrayList<Token> list = new ArrayList<>();
+	private Collection<Token> collection = new Collection<>();
 
 	/**
 	 * Adds an element to the TokenList.
@@ -10,7 +7,7 @@ public class TokenList implements TokenListInterface {
 	 * @param token to add
 	 */
 	public void add(Token token) {
-		list.add(token);
+		collection.add(token);
 	}
 
     /**
@@ -19,7 +16,7 @@ public class TokenList implements TokenListInterface {
      * @param index containing the index of the item to be removed
      */
 	public void remove(int index) {
-		list.remove(index);
+		collection.remove(index);
 	}
 
     /**
@@ -29,7 +26,7 @@ public class TokenList implements TokenListInterface {
      * @param token that needs to be added
      */
 	public void set(int index, Token token) {
-		list.add(index, token);
+		collection.set(index, token);
 	}
 
     /**
@@ -38,7 +35,7 @@ public class TokenList implements TokenListInterface {
      * @param index of the item to get
      */
 	public Token get(int index) {
-		return list.get(index);
+		return (Token) collection.get(index);
 	}
 
     /**
@@ -47,7 +44,7 @@ public class TokenList implements TokenListInterface {
      * @return int containing the size
      */
 	public int size() {
-		return list.size();
+		return collection.size();
 	}
 
 
