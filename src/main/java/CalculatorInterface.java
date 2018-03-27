@@ -4,7 +4,7 @@ interface CalculatorInterface {
      * @param in String of tokens to be parsed
      * @return the list of arithmetic tokens from the String input
      */
-    TokenList readTokens(String input);
+    TokenList readTokens(String input) throws IncorrectTokenInput;
 
     /*
      * @param tokens A list of tokens signifying an RPN expression.

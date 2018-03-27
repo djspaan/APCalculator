@@ -23,4 +23,6 @@ hs_err_pid*
 AP1.iml
 bin/java.zip
 src/main/java/java.zip
+APCalculator.zip
 .gradle/
+out/
