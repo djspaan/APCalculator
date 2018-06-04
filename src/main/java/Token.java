@@ -1,12 +1,13 @@
 /**
  * Token interface. Extends the Comparable interface. compareTo should compare
  * the priority of the tokens.
+ *
  * @elements characters of type char
  * @structure linear
  * @domain all rows of characters
  */
 public interface Token {
-    int     NUMBER_TYPE = 1,
+    int NUMBER_TYPE = 1,
             OPERATOR_TYPE = 2,
             PARENTHESIS_TYPE = 3;
 
@@ -25,8 +26,8 @@ public interface Token {
 
     /**
      * @pre -
-     * @post The precedence of the token, represented by an int, 
-     * has been returned. Higher int's signify a higher precedence. 
+     * @post The precedence of the token, represented by an int,
+     * has been returned. Higher int's signify a higher precedence.
      * If token type does not need a precedence,
      * the result of this method is -1.
      */

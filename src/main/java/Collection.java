@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-class Collection<E> {
+class Collection<T> {
     private static final int INITIAL_CAPACITY = 10;
     private int size = 0;
     private Object elements[] = {};
@@ -8,38 +8,36 @@ class Collection<E> {
     /**
      * Constructor of the collection.
      */
-    public Collection() {
+    Collection() {
         elements = new Object[INITIAL_CAPACITY];
     }
 
     /**
      * Add an element to the collection.
      *
-     * @param token Token to add
+     * @param element T to add
      */
-    public void add(Token token) {
+    public void add(T element) {
         if (size == elements.length) {
             increaseSize();
         }
-        elements[size++] = token;
+        elements[size++] = element;
     }
 
     /**
      * Set an element at the given index.
      *
-     * @param index to set the element at
-     * @param token Token to set
+     * @param index   to set the element at
+     * @param element T to set
      */
-    public void set(int index, Token token) {
+    public void set(int index, T element) {
         if (index < 0 || index >= size + 1) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
         }
 
-        for (int i = index + 1; i <= size; i++) {
-            elements[i+1] = elements[i];
-        }
+        System.arraycopy(elements, index + 1, elements, index + 1 + 1, size + 1 - (index + 1));
 
-        elements[index] = token;
+        elements[index] = element;
 
         size++;
     }
@@ -54,44 +52,16 @@ class Collection<E> {
     }
 
     /**
-     * Return the top element of the collection.
-     *
-     * @return Token to return
-     */
-    public Token top() {
-        return (Token) elements[0];
-    }
-
-    /**
-     * Remove the first item of the collection and return it.
-     *
-     * @return Token popped
-     */
-    public Token pop() {
-        Token token = (Token) elements[0];
-        remove(0);
-        return token;
-    }
-
-    /**
-     * Set an element to the first index of the collection.
-     *
-     * @param token Token to push
-     */
-    public void push(Token token) {
-        set(0, token);
-    }
-
-    /**
      * Method returns element on specific index.
      *
      * @param index int of the element to return
      */
-    public Token get(int index) {
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
         }
-        return (Token) elements[index]; // return value on index.
+        return (T) elements[index]; // return value on index.
     }
 
     /**
@@ -99,19 +69,18 @@ class Collection<E> {
      *
      * @param index int of the element to remove
      */
-    public Token remove(int index) {
+    @SuppressWarnings("unchecked")
+    public T remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size "
                     + index);
         }
 
-        Token token = (Token) elements[index];
-        for (int i = index; i < size - 1; i++) {
-            elements[i] = elements[i + 1];
-        }
+        T element = (T) elements[index];
+        System.arraycopy(elements, index + 1, elements, index, size - 1 - index);
         size--;
 
-        return token;
+        return element;
     }
 
     /**

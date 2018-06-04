@@ -1,10 +1,10 @@
-/** 
+/**
  * @elements numbers of the type Double
  * @structure linear
  * @domain all rows of Doubles
  **/
 public interface DoubleStackInterface {
-	
+
     /**
      * @pre -
      * @post Double element is now at the top of the stack.

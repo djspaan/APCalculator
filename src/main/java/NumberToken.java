@@ -1,6 +1,6 @@
 
 public class NumberToken implements Token {
-	private double value;
+    private double value;
 
     /**
      * Constructor for the NumberToken.
@@ -8,8 +8,8 @@ public class NumberToken implements Token {
      * @param number to add
      */
     NumberToken(double number) {
-		this.value = number;
-	}
+        this.value = number;
+    }
 
     /**
      * Gets the value of the NumberToken.
@@ -17,8 +17,8 @@ public class NumberToken implements Token {
      * @return string containing the value
      */
     public String getValue() {
-	    return String.valueOf(this.value);
-	}
+        return String.valueOf(this.value);
+    }
 
     /**
      * Gets the type of the NumberToken.
@@ -26,8 +26,8 @@ public class NumberToken implements Token {
      * @return string containing the type
      */
     public int getType() {
-	    return NUMBER_TYPE;
-	}
+        return NUMBER_TYPE;
+    }
 
     /**
      * Gets the value of the precedence.
@@ -35,7 +35,7 @@ public class NumberToken implements Token {
      * @return string containing the precedence value
      */
     public int getPrecedence() {
-	    return -1;
-	}
+        return -1;
+    }
 
 }

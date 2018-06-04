@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-
 public class DoubleStack implements DoubleStackInterface {
-	private ArrayList<Double> stack = new ArrayList<>();
+    private Stack<Double> stack = new Stack<>();
 
     /**
      * Pushes an element to the DoubleStack.
@@ -9,8 +7,8 @@ public class DoubleStack implements DoubleStackInterface {
      * @param element to push
      */
     public void push(Double element) {
-        stack.add(0, element);
-	}
+        stack.push(element);
+    }
 
     /**
      * Gets and removes the first item of the DoubleStack.
@@ -18,16 +16,13 @@ public class DoubleStack implements DoubleStackInterface {
      * @return double when stack is not empty, null otherwise
      */
     public Double pop() {
-		try{
-			Double number = stack.get(0);
-			stack.remove(0);
-			return number;
-		}
-		catch (Exception e) {
-			System.out.println("DoubleStack cannot be empty when popped.");
-			return null;
-		}
-	}
+        try {
+            return stack.pop();
+        } catch (Exception e) {
+            System.out.println("DoubleStack cannot be empty when popped.");
+            return null;
+        }
+    }
 
     /**
      * Gets the first item of the DoubleStack.
@@ -35,8 +30,8 @@ public class DoubleStack implements DoubleStackInterface {
      * @return double, the first item of the DoubleStack
      */
     public Double top() {
-        return stack.get(0);
-	}
+        return stack.top();
+    }
 
     /**
      * Gets the number of elements in the DoubleStack.
@@ -44,10 +39,6 @@ public class DoubleStack implements DoubleStackInterface {
      * @return int containing the size
      */
     public int size() {
-		return stack.size();
-	}
-
-
-
-
+        return stack.size();
+    }
 }

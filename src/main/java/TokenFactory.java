@@ -18,7 +18,7 @@ public class TokenFactory {
             return parseParenthesis(token);
         }
 
-        throw new IncorrectTokenInput("Incorrect input Token");
+        throw new IncorrectTokenInput("Incorrect input token: " + token);
     }
 
     /**
