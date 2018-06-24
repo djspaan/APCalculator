@@ -37,6 +37,8 @@ task archive(type: Zip) {
     from '.'
  exclude "*.zip"
  exclude "build"
+ exclude ".idea"
  exclude ".gradle"
+
     includeEmptyDirs = false
 }
