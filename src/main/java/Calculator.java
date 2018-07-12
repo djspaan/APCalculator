@@ -8,7 +8,7 @@ public class Calculator implements CalculatorInterface {
    * @param input String
    * @return Double|null
    */
-  public Double evaluate(String input) {
+  Double evaluate(String input) {
     try {
       return rpn(shuntingYard(readTokens(input)));
     } catch (IncorrectTokenInput incorrectTokenInput) {

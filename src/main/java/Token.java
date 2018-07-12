@@ -1,8 +1,7 @@
 /**
- * Token interface. Extends the Comparable interface. compareTo should compare
- * the priority of the tokens.
+ * Token interface.
  *
- * @elements characters of type char
+ * @elements characters
  * @structure linear
  * @domain all rows of characters
  */
@@ -32,5 +31,4 @@ public interface Token {
      * the result of this method is -1.
      */
     int getPrecedence();
-
 }

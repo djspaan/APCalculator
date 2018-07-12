@@ -1,21 +1,19 @@
 interface CalculatorInterface {
-
-    /*
-     * @param in String of tokens to be parsed
-     * @return the list of arithmetic tokens from the String input
+    /**
+     * @pre -
+     * @post the list of arithmetic tokens from the String input has been returned.
      */
     TokenList readTokens(String input) throws IncorrectTokenInput;
 
-    /*
-     * @param tokens A list of tokens signifying an RPN expression.
-     * @return The result of the RPN expression.
+    /**
+     * @pre -
+     * @post The result of the RPN expression has been returned.
      */
     Double rpn(TokenList tokens);
 
-    /*
-     * @param tokens A list of tokens signifying an arithmetic expression.
-     * @return The arithmetic expression tokens converted into
-     * Reverse-Polish-Notation.
+    /**
+     * @pre -
+     * @post The arithmetic expression tokens converted into Reverse-Polish-Notation have been returned.
      */
     TokenList shuntingYard(TokenList tokens);
 }

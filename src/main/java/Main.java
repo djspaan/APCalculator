@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
 public class Main {
-    /**
-     * Starts the program.
-     */
     private void start() {
         Scanner scanner = new Scanner(System.in);
         Calculator calculator = new Calculator();
@@ -25,11 +22,6 @@ public class Main {
         }
     }
 
-    /**
-     * Runs the APCalculator.
-     *
-     * @param argv list of strings
-     */
     public static void main(String[] argv) {
         new Main().start();
     }

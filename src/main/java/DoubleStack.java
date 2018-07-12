@@ -16,12 +16,7 @@ public class DoubleStack implements DoubleStackInterface {
      * @return double when stack is not empty, null otherwise
      */
     public Double pop() {
-        try {
-            return stack.pop();
-        } catch (Exception e) {
-            System.out.println("DoubleStack cannot be empty when popped.");
-            return null;
-        }
+        return stack.pop();
     }
 
     /**

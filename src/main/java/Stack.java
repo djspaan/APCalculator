@@ -6,21 +6,13 @@ class Stack<T> {
   private int size = 0;
   private int capacity;
 
-  /**
-   * Stack constructor.
-   */
   @SuppressWarnings("unchecked")
   Stack() {
     this.capacity = DEFAULT_CAPACITY;
     store = (T[]) new Object[DEFAULT_CAPACITY];
   }
 
-  /**
-   * Push an element to the stack.
-   *
-   * @param element T
-   */
-  public void push(T element) {
+  void push(T element) {
     if (this.size >= store.length) {
       int newSize = size + (size >> 1);
       store = Arrays.copyOf(store, newSize);
@@ -29,12 +21,7 @@ class Stack<T> {
     store[size++] = element;
   }
 
-  /**
-   * Pop the first item from the stack.
-   *
-   * @return element T
-   */
-  public T pop() {
+  T pop() {
     if (size <= 0) {
       return null;
     }
@@ -50,21 +37,11 @@ class Stack<T> {
     return value;
   }
 
-  /**
-   * Return the first element from the stack.
-   *
-   * @return element T
-   */
-  public T top() {
+  T top() {
     return store[size - 1];
   }
 
-  /**
-   * Return the size of the stack.
-   *
-   * @return element T
-   */
-  public int size() {
+  int size() {
     return size;
   }
 }
